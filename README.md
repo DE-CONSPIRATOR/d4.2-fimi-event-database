@@ -1,67 +1,32 @@
-# D4.2 FIMI Event Database
+# DE-CONSPIRATOR Deliverable D4.2: The FIMI Attribution Event Dataset
 
-**The DE-CONSPIRATOR FIMI Attribution Event Dataset**
+Submission package, 30 September 2026. Report v1.2, dataset release v2.4.3, codebook v2.4.5, portal v2.4.3.
+Horizon Europe Grant Agreement 101132671. Licence: CC BY 4.0 for the data and the codebook; quoted source material remains the right of its publishers.
 
-| Item | Value |
+## What to open
+
+| File | Open it when you want to |
 |---|---|
-| Deliverable | D4.2 FIMI Event Database |
-| Work package | WP4 FIMI 'Major Events' Repository |
-| Issued by | Özyeğin University |
-| Dissemination level | PU (Public) |
-| Dataset release | v2.4.3 |
-| Project | DE-CONSPIRATOR, Horizon Europe Grant Agreement No. 101132671 |
+| DECONSPIRATOR_D4.2.docx | Read the design, the findings and the policy implications (report, 11 sections) |
+| DECONSPIRATOR_D4.2_Codebook.docx | Work with the data: every variable, every rule, and the expressions that reproduce the published figures |
+| DCFIMIEvent_v2_4_3.csv | The dataset: 3,131 rows, 3,029 distinct incidents (is_primary == 1), 81 variables |
+| DCFIMIEvent_v2_4_3_registries.xlsx | The registers behind the dataset, one sheet each: institutions, source identities, documents, aliases, corrections |
+| fimi_portal_v2_4_3.html | Explore the incidents in a browser; its links point to the files in this folder |
+| supporting/reproduce_figures.py | Check the dataset: runs every line of codebook Table 19 and fails on any mismatch |
+| supporting/make_figures.py | Regenerate report Figures 3, 5, 9, 10 and 13 from the dataset |
 
-## The dataset
+## Reading the dataset
 
-The dataset records the attributions of foreign information manipulation and interference (FIMI) that European and allied institutions have published. We compiled it from 534 documents issued by 97 institutions and organised it into 3,029 distinct incidents. Each row carries the institution, the source document, the page and a verbatim quotation, so that a reader can check it against its source.
+Read every column as text and keep empty cells empty: `pd.read_csv(path, dtype=str, keep_default_na=False)`.
+Count incidents with `is_primary == "1"`. Split multi-valued fields on ";" and strip each item; do not split `cited_sources`.
+In the 4 response and evidence fields, `None recorded` means the source was read and describes none, and an empty cell means the field was not populated.
 
-We record what institutions have said, and we do not establish what took place. The dataset supports claims about how European institutions attribute FIMI. It does not support claims about the incidence, distribution or trend of FIMI itself.
+## SHA-256
 
-The D4.2 report sets out the design, the validation and the findings. The codebook documents the 81 variables of the data file.
-
-## Repository layout
-
-```
-index.html                           interactive portal, served with GitHub Pages
-DCFIMIEvent_v2_4_3.csv               data file
-DCFIMIEvent_v2_4_3_registries.xlsx   registries and correction register
-DECONSPIRATOR_D4.2.docx              D4.2 report
-DECONSPIRATOR_D4.2_Codebook.docx     codebook
-MANIFEST.sha256                      SHA-256 checksum of every file
-```
-
-The files sit in one folder because the portal links to them by name. The SHA-256 of the data file is `737f23bea8fabfd312c5903730d2b9022be7e6cd9eaeb09a5ae30bcaa26fa649`.
-
-## Interactive portal
-
-The portal is a single web page that carries its own data. A user can filter the incidents, explore the attribution patterns and download the filtered records. GitHub Pages serves it from `index.html` in this repository.
-
-## Reading the data
-
-The file holds one row for each description of an incident in a document. Count incidents by filtering on `is_primary`.
-
-```python
-import pandas as pd
-d = pd.read_csv("DCFIMIEvent_v2_4_3.csv", dtype=str, keep_default_na=False)
-incidents = d[d.is_primary == "1"]   # 3,029 rows
-```
-
-Section 8 of the codebook lists every published figure with the expression that reproduces it from the released file.
-
-## How to cite
-
-DE-CONSPIRATOR Consortium (2026). The DE-CONSPIRATOR FIMI Attribution Event Dataset, release v2.4.3. Deliverable D4.2, Horizon Europe Grant Agreement 101132671.
-
-We will add a DOI for the dataset with the first public release.
-
-## Licence
-
-We release the data and the codebook under the Creative Commons Attribution 4.0 International licence (CC BY 4.0). Third-party material quoted from source documents remains subject to the rights of its original publishers.
-
-## Corrections
-
-Any institution or individual named in the dataset may contest a row. We record every correction in the correction register. Write to info@deconspirator-project.eu.
-
-## Funding
-
-Funded by the European Union under Grant Agreement No. 101132671. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Research Executive Agency. Neither the European Union nor the granting authority can be held responsible for them.
+    cc3adab3af3994ae7bb5a770e806579b20cb66487333bbb4c8c824a6aa939a5a  DECONSPIRATOR_D4.2.docx
+    aac0c8af37894bf7e448232bb2f5e7b1fca6600c82fc96ec870319183689b8e0  DECONSPIRATOR_D4.2_Codebook.docx
+    737f23bea8fabfd312c5903730d2b9022be7e6cd9eaeb09a5ae30bcaa26fa649  DCFIMIEvent_v2_4_3.csv
+    8a61538f3e93b24a7220bc331570a2baa662d3f34c3b63b5e433a7ee6f5439e2  DCFIMIEvent_v2_4_3_registries.xlsx
+    c23b9fc0755e86f44eb9f23c5c20b20416e7e91c591f2790c21d8107a739b9dc  fimi_portal_v2_4_3.html
+    52a64cb906ad883fa9c2238cfa1b8c4cc67652d0eb8be6bf664e1d1e321a080b  supporting/reproduce_figures.py
+    635962084e82a128840304d42e4dba07b4f58693fb9d687088def3f1b22b9d29  supporting/make_figures.py
