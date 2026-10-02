@@ -22,18 +22,19 @@ The D4.2 report sets out the design, the validation and the findings. The codebo
 ## Repository layout
 
 ```
-data/        DCFIMIEvent_v2_4_3.csv, DCFIMIEvent_v2_4_3_registries.xlsx
-docs/        D4.2 report and codebook
-scripts/     reproduce_figures.py, make_figures.py
-portal/      build scripts of the interactive portal
-index.html   interactive portal, served with GitHub Pages
+index.html                           interactive portal, served with GitHub Pages
+DCFIMIEvent_v2_4_3.csv               data file
+DCFIMIEvent_v2_4_3_registries.xlsx   registries and correction register
+DECONSPIRATOR_D4.2.docx              D4.2 report
+DECONSPIRATOR_D4.2_Codebook.docx     codebook
+MANIFEST.sha256                      SHA-256 checksum of every file
 ```
 
-We will add these files when D4.2 is submitted.
+The files sit in one folder because the portal links to them by name. The SHA-256 of the data file is `737f23bea8fabfd312c5903730d2b9022be7e6cd9eaeb09a5ae30bcaa26fa649`.
 
 ## Interactive portal
 
-The portal is a single web page that carries its own data. A user can filter the incidents, explore the attribution patterns and download the filtered records. We will publish it with GitHub Pages from this repository.
+The portal is a single web page that carries its own data. A user can filter the incidents, explore the attribution patterns and download the filtered records. GitHub Pages serves it from `index.html` in this repository.
 
 ## Reading the data
 
@@ -41,11 +42,11 @@ The file holds one row for each description of an incident in a document. Count 
 
 ```python
 import pandas as pd
-d = pd.read_csv("data/DCFIMIEvent_v2_4_3.csv", dtype=str, keep_default_na=False)
+d = pd.read_csv("DCFIMIEvent_v2_4_3.csv", dtype=str, keep_default_na=False)
 incidents = d[d.is_primary == "1"]   # 3,029 rows
 ```
 
-The script `reproduce_figures.py` checks every published figure against the released file.
+Section 8 of the codebook lists every published figure with the expression that reproduces it from the released file.
 
 ## How to cite
 
